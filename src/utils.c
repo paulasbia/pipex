@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/15 11:26:35 by pde-souz          #+#    #+#             */
-/*   Updated: 2023/07/15 14:56:30 by pde-souz         ###   ########.fr       */
+/*   Created: 2023/07/15 13:34:28 by pde-souz          #+#    #+#             */
+/*   Updated: 2023/07/15 15:02:28 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "pipex.h"
 
-void	error(const char *fName)
+void	child_process(char **av, int *fd)
 {
-	printf("ERROR - %s - %s\n", fName, strerror(errno));
-	exit(EXIT_FAILURE);
-}
+	int	input;
 
-void	exit_error(const char *msg)
-{
-	printf("ERROR - %s\n", msg);
-	exit(EXIT_FAILURE);
+	if (close(fd[0]) == -1)
+		error("close fd[0]");
+	input = open(av[1], O_RDONLY, 077);
+	if (input < 0)
+		error("open fd\n");
+	if (fd[1] != STDOUT_FILENO)
+	{
+		if (dup2(fd[1], STDOUT_FILENO) < 0)
+			error("dup2 fd[1]");
+		if (close(fd[1]) == -1)
+			error("close fd[1]");
+	}
 }

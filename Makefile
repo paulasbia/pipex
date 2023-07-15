@@ -14,10 +14,10 @@ FLAGS = -Wall -Wextra -Werror
 $(LIBFTA):
 	make -C libft
 
-all: $(NAME)
-
 $(NAME): $(LIBFTA) $(OBJS)
 	cc $(FLAGS) $(OBJS) $(LIBFTA) -o $(NAME) 
+
+all: $(NAME)
 
 install:
 	python3 -m pip install --upgrade pip setuptools
@@ -35,10 +35,11 @@ run: all
 
 clean:
 	rm -f $(OBJS)
+	make -C libft clean
 
 fclean: clean
 	rm -f $(NAME)
-	MAKE -c libft fclean
+	make -C libft fclean
 
 re: fclean all
 
