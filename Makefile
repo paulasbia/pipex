@@ -1,12 +1,12 @@
 NAME = pipex
 
-SRCS =  ./src/main.c ./src/error.c
+SRCS =  ./src/main.c ./src/error.c ./src/utils.c
 
 OBJS = $(SRCS:.c=.o)
 
 LIBFTA = ./libft/libft.a
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = 
 
 %.o: %.c
 	cc $(FLAGS) -c $< -o $@
@@ -28,7 +28,7 @@ check:
 	norminette $(SRCS)
 
 test: all
-	gcc -ggdb $(FLAGS) ft_printf.c $(NAME) -o result.out
+	gcc -ggdb $(FLAGS) main.c utils.c $(NAME) -o main.o
 
 run: all
 	./pipex
