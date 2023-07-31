@@ -6,7 +6,7 @@
 #    By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/28 17:48:30 by paula             #+#    #+#              #
-#    Updated: 2023/05/08 17:24:01 by pde-souz         ###   ########.fr        #
+#    Updated: 2023/07/31 16:13:20 by pde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,18 +29,18 @@ OBJS_B = $(SRCS_B:.c=.o)
 FLAGS = -Wall -Wextra -Werror
 
 %.o: %.c
-	cc $(FLAGS) -c $< -o $@
+	@cc $(FLAGS) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(OBJS_B)
-	ar -crs $(NAME) $(OBJS) $(OBJS_B)
+	@ar -crs $(NAME) $(OBJS) $(OBJS_B)
 
 clean:
-	rm -f $(OBJS) $(OBJS_B)
+	@rm -f $(OBJS) $(OBJS_B)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

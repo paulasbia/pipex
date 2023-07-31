@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:34:28 by pde-souz          #+#    #+#             */
-/*   Updated: 2023/07/31 10:31:14 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:17:28 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@ char	*check_path(char *mycmd, char **env)
 	char	**paths;
 	int		i;
 
-	printf("entrou check\n");
 	i = 0;
-	while (ft_strnstr(env[i], "PATH=", 5) == 0)
+	while (ft_strnstr(env[i], "PATH=", 5) == 0)tatus
 		i++;
-	printf("saiu do while com i %d\n", i);
 	paths = ft_split(env[i] + 5, ':');
 	i = 0;
 	while (paths[i] != 0)
@@ -32,11 +30,7 @@ char	*check_path(char *mycmd, char **env)
 		cmd_path = ft_strjoin(temp, mycmd);
 		free(temp);
 		if (access(cmd_path, F_OK) != -1)
-		{
-			printf("vai retornar \n");
 			return (cmd_path);
-		}
-			
 		free(cmd_path);
 		i++;
 	}
@@ -52,24 +46,22 @@ void	run(char *arg, char **env)
 	char	**mycmd;
 	char	*path_cmd;
 	int		i;
-	printf("entrou run mesmo\n");
+
 	i = 0;
 	mycmd = ft_split(arg, ' ');
-	printf("mycmp eh %s\n", mycmd[0]);
 	path_cmd = check_path(mycmd[0], env);
 	if (path_cmd == 0)	
 	{
-		printf("deu ruim\n");
 		while (mycmd[i])
 		{
 			free(mycmd[i]);
 			i++;
 		}	
 		free(mycmd);
-		error("path_cmd");
+		error();
 	}
 	if (execve(path_cmd, mycmd, env) == -1)
-		error("execve");
+		error();
 }
 
 void	child_process_1(char **av, int *fd, char **env)
@@ -78,17 +70,17 @@ void	child_process_1(char **av, int *fd, char **env)
 	
 //	printf("entrou child1\n");
 	if (close(fd[0]) == -1)
-		error("close fd[0]");
+		error();
 	input = open(av[1], O_RDONLY, 0777);
 	if (input < 0)
-		error("open fd\n");
+		error();
 	if (fd[1] != STDOUT_FILENO)
 	{
 		dup2(input, STDIN_FILENO);
 		if (dup2(fd[1], STDOUT_FILENO) == -1)
-			error("dup2 fd[1]");
+			error();
 		if (close(input) == -1)
-			error("close input");
+			error();
 		run(av[2], env);
 	}
 }
@@ -99,17 +91,17 @@ void	child_process_2(char **av, int *fd, char **env)
 	// printf("entrou child2\n");
 
 	if (close(fd[1]) == -1)
-		error("close fd[1]");
+		error();
 	output = open(av[4], O_TRUNC | O_CREAT | O_WRONLY, 0644);
 	if (output < 0)
-		error("open fd\n");
+		error();
 	if (fd[0] != STDIN_FILENO)
 	{
 		if (dup2(fd[0], STDIN_FILENO) < 0)
-			error("dup2 fd[1]");
+			error();
 		dup2(output, STDOUT_FILENO);
 		if (close(output) == -1)
-			error("close output");
+			error();
 		run(av[3], env);
 	}
 }

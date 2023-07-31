@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 11:11:53 by pde-souz          #+#    #+#             */
-/*   Updated: 2023/07/31 09:45:29 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:33:20 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-void	error(const char *fName);
+void	error(void);
 void	exit_error(const char *msg);
 void	child_process_1(char **av, int *fd, char **env);
 void	child_process_2(char **av, int *fd, char **env);
