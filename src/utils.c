@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:34:28 by pde-souz          #+#    #+#             */
-/*   Updated: 2023/07/31 16:17:28 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:25:31 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*check_path(char *mycmd, char **env)
 	int		i;
 
 	i = 0;
-	while (ft_strnstr(env[i], "PATH=", 5) == 0)tatus
+	while (ft_strnstr(env[i], "PATH=", 5) == 0)
 		i++;
 	paths = ft_split(env[i] + 5, ':');
 	i = 0;
@@ -50,7 +50,7 @@ void	run(char *arg, char **env)
 	i = 0;
 	mycmd = ft_split(arg, ' ');
 	path_cmd = check_path(mycmd[0], env);
-	if (path_cmd == 0)	
+	if (path_cmd == 0)
 	{
 		while (mycmd[i])
 		{
@@ -67,8 +67,7 @@ void	run(char *arg, char **env)
 void	child_process_1(char **av, int *fd, char **env)
 {
 	int	input;
-	
-//	printf("entrou child1\n");
+
 	if (close(fd[0]) == -1)
 		error();
 	input = open(av[1], O_RDONLY, 0777);
@@ -88,7 +87,6 @@ void	child_process_1(char **av, int *fd, char **env)
 void	child_process_2(char **av, int *fd, char **env)
 {
 	int	output;
-	// printf("entrou child2\n");
 
 	if (close(fd[1]) == -1)
 		error();

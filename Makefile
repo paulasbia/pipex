@@ -6,7 +6,7 @@
 #    By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 15:54:36 by pde-souz          #+#    #+#              #
-#    Updated: 2023/07/31 16:09:56 by pde-souz         ###   ########.fr        #
+#    Updated: 2023/07/31 16:22:05 by pde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,20 @@ FLAGS = -Wall -Wextra -Werror -g
 	@cc ${FLAGS} -c $< -o $@
 
 all: ${NAME}
+
+install:
+	python3 -m pip install --upgrade pip setuptools
+	python3 -m pip install norminette
+	sudo apt install valgrind -y
+
+check:
+	norminette $(SRCS)
+
+test: all
+	gcc -ggdb $(FLAGS) main.c utils.c $(NAME) -o main.o
+
+run: all
+	./pipex
 
 ${NAME}: ${OBJS}
 	@echo "\033[33m----Compiling lib----"
@@ -39,6 +53,8 @@ fclean: clean
 
 re:			fclean all
 
-re_bonus:	fclean 
+valgrind: clean fclean all
+	rm -f $(OBJS) $(NAME)
+	valgrind --leak-check=full ./result.out
 
 .PHONY: all clean fclean re re_bonus bonus party
