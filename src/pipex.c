@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/15 10:59:56 by pde-souz          #+#    #+#             */
-/*   Updated: 2023/07/31 13:35:32 by pde-souz         ###   ########.fr       */
+/*   Created: 2023/08/01 09:36:44 by pde-souz          #+#    #+#             */
+/*   Updated: 2023/08/01 12:49:23 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	main(int ac, char **av, char **env)
 	pid_t	child_pid1;
 	pid_t	child_pid2;
 
-	(void)ac;
 	if (ac != 5)
 		exit_error("Five arguments required.\n");
 	if (pipe(fd) < 0)

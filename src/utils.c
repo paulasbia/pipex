@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:34:28 by pde-souz          #+#    #+#             */
-/*   Updated: 2023/07/31 16:25:31 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/01 12:46:16 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*check_path(char *mycmd, char **env)
 	i = 0;
 	while (ft_strnstr(env[i], "PATH=", 5) == 0)
 		i++;
-	paths = ft_split(env[i] + 5, ':');
+	paths = ft_split(&env[i][5], ':');
 	i = 0;
 	while (paths[i] != 0)
 	{
@@ -47,16 +47,13 @@ void	run(char *arg, char **env)
 	char	*path_cmd;
 	int		i;
 
-	i = 0;
+	i = -1;
 	mycmd = ft_split(arg, ' ');
 	path_cmd = check_path(mycmd[0], env);
 	if (path_cmd == 0)
 	{
-		while (mycmd[i])
-		{
+		while (mycmd[++i])
 			free(mycmd[i]);
-			i++;
-		}	
 		free(mycmd);
 		error();
 	}
@@ -75,9 +72,12 @@ void	child_process_1(char **av, int *fd, char **env)
 		error();
 	if (fd[1] != STDOUT_FILENO)
 	{
-		dup2(input, STDIN_FILENO);
+		if (dup2(input, STDIN_FILENO) == -1)
+			error();
 		if (dup2(fd[1], STDOUT_FILENO) == -1)
 			error();
+		// if (close(fd[0]) == -1)
+		// 	error();
 		if (close(input) == -1)
 			error();
 		run(av[2], env);
@@ -90,14 +90,17 @@ void	child_process_2(char **av, int *fd, char **env)
 
 	if (close(fd[1]) == -1)
 		error();
-	output = open(av[4], O_TRUNC | O_CREAT | O_WRONLY, 0644);
+	output = open(av[4], O_TRUNC | O_CREAT | O_WRONLY, 0777);
 	if (output < 0)
 		error();
 	if (fd[0] != STDIN_FILENO)
 	{
 		if (dup2(fd[0], STDIN_FILENO) < 0)
 			error();
-		dup2(output, STDOUT_FILENO);
+		if (dup2(output, STDOUT_FILENO) == -1)
+			error();
+		// if (close(fd[1]) == -1)
+		// 	error();
 		if (close(output) == -1)
 			error();
 		run(av[3], env);

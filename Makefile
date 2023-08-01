@@ -6,13 +6,14 @@
 #    By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 15:54:36 by pde-souz          #+#    #+#              #
-#    Updated: 2023/07/31 16:22:05 by pde-souz         ###   ########.fr        #
+#    Updated: 2023/08/01 09:37:16 by pde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-SRCS = src/main.c src/utils.c src/error.c
+SRCS = src/pipex.c src/utils.c src/error.c
+
 OBJS = ${SRCS:.c=.o}
 
 FLAGS = -Wall -Wextra -Werror -g
@@ -57,4 +58,4 @@ valgrind: clean fclean all
 	rm -f $(OBJS) $(NAME)
 	valgrind --leak-check=full ./result.out
 
-.PHONY: all clean fclean re re_bonus bonus party
+.PHONY: all clean fclean re re_bonus bonus
