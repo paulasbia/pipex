@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 11:11:53 by pde-souz          #+#    #+#             */
-/*   Updated: 2023/08/02 10:27:08 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/02 16:28:05 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 
 void	error(void);
 void	exit_error(const char *msg);
+void	clean_paths(char **paths);
 void	child_process_1(char **av, int *fd, char **env);
 void	child_process_2(char **av, int *fd, char **env);
 void	run(char *cmd, char **env);
 char	*check_path(char *mycmd, char **env);
-
 
 #endif

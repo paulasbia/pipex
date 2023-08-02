@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:34:28 by pde-souz          #+#    #+#             */
-/*   Updated: 2023/08/02 12:36:59 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/02 16:27:33 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,13 @@ char	*check_path(char *mycmd, char **env)
 		free(temp);
 		if (access(cmd_path, F_OK) != -1)
 		{
-			i = -1;
-			while (paths[++i])
-				free(paths[i]);
-			free(paths);
+			clean_paths(paths);
 			return (cmd_path);
 		}
 		free(cmd_path);
 		i++;
 	}
-	i = -1;
-	while (paths[++i])
-		free(paths[i]);
-	free(paths);
+	clean_paths(paths);
 	return (0);
 }
 
