@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 11:26:35 by pde-souz          #+#    #+#             */
-/*   Updated: 2023/08/02 17:32:28 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/02 17:56:32 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	exit_error(const char *msg)
 	exit(EXIT_FAILURE);
 }
 
-void	clean_paths(char **paths)
+void	ft_clean(char **to_clean)
 {
 	int	i;
 
 	i = -1;
-	while (paths[++i])
-		free(paths[i]);
-	free(paths);
+	while (to_clean[++i])
+		free(to_clean[i]);
+	free(to_clean);
 }

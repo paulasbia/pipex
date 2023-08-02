@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:34:28 by pde-souz          #+#    #+#             */
-/*   Updated: 2023/08/02 17:22:56 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/02 18:02:45 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ char	*check_path(char *mycmd, char **env)
 	char	*temp;
 	char	**paths;
 	int		i;
-	
+
 	i = 0;
-	if (ft_strchr(mycmd, '/'))
-		return(mycmd);
 	while (ft_strnstr(env[i], "PATH=", 5) == 0)
 		i++;
 	paths = ft_split(&env[i][5], ':');
@@ -33,13 +31,13 @@ char	*check_path(char *mycmd, char **env)
 		free(temp);
 		if (access(cmd_path, F_OK) != -1)
 		{
-			clean_paths(paths);
+			ft_clean(paths);
 			return (cmd_path);
 		}
 		free(cmd_path);
 		i++;
 	}
-	clean_paths(paths);
+	ft_clean(paths);
 	return (0);
 }
 
@@ -47,24 +45,22 @@ void	run(char *arg, char **env)
 {
 	char	**mycmd;
 	char	*path_cmd;
-	int		i;
 
-	i = -1;
 	mycmd = ft_split(arg, ' ');
-	path_cmd = check_path(mycmd[0], env);
+	if (ft_strchr(mycmd[0], '/'))
+		path_cmd = mycmd[0];
+	else
+		path_cmd = check_path(mycmd[0], env);
 	if (path_cmd == 0)
 	{
-		while (mycmd[++i])
-			free(mycmd[i]);
-		free(mycmd);
+		ft_clean(mycmd);
+		free(path_cmd);
 		error();
 	}
 	if (execve(path_cmd, mycmd, env) == -1)
 	{
-		while (mycmd[++i])
-			free(mycmd[i]);
+		ft_clean(mycmd);
 		free(path_cmd);
-		free(mycmd);
 		error();
 	}
 }
