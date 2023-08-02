@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:34:28 by pde-souz          #+#    #+#             */
-/*   Updated: 2023/08/02 10:26:54 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/02 12:36:59 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,13 @@ char	*check_path(char *mycmd, char **env)
 		cmd_path = ft_strjoin(temp, mycmd);
 		free(temp);
 		if (access(cmd_path, F_OK) != -1)
+		{
+			i = -1;
+			while (paths[++i])
+				free(paths[i]);
+			free(paths);
 			return (cmd_path);
+		}
 		free(cmd_path);
 		i++;
 	}
@@ -61,6 +67,7 @@ void	run(char *arg, char **env)
 	{
 		while (mycmd[++i])
 			free(mycmd[i]);
+		free(path_cmd);
 		free(mycmd);
 		error();
 	}
@@ -93,7 +100,7 @@ void	child_process_2(char **av, int *fd, char **env)
 
 	if (close(fd[1]) == -1)
 		error();
-	output = open(av[4], O_TRUNC | O_CREAT | O_WRONLY, 0777);
+	output = open(av[4], O_TRUNC | O_CREAT | O_WRONLY, 0644);
 	if (output < 0)
 		error();
 	if (fd[0] != STDIN_FILENO)
