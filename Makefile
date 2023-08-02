@@ -6,7 +6,7 @@
 #    By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 15:54:36 by pde-souz          #+#    #+#              #
-#    Updated: 2023/08/01 09:37:16 by pde-souz         ###   ########.fr        #
+#    Updated: 2023/08/01 13:34:50 by pde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ check:
 	norminette $(SRCS)
 
 test: all
-	gcc -ggdb $(FLAGS) main.c utils.c $(NAME) -o main.o
+	gcc -ggdb $(FLAGS) pipex.c utils.c error.c $(NAME) -o pipex.o
 
 run: all
 	./pipex
@@ -58,4 +58,4 @@ valgrind: clean fclean all
 	rm -f $(OBJS) $(NAME)
 	valgrind --leak-check=full ./result.out
 
-.PHONY: all clean fclean re re_bonus bonus
+.PHONY: all clean fclean re 

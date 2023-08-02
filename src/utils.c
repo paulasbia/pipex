@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:34:28 by pde-souz          #+#    #+#             */
-/*   Updated: 2023/08/01 13:06:57 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/02 10:26:54 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,12 @@ void	run(char *arg, char **env)
 		error();
 	}
 	if (execve(path_cmd, mycmd, env) == -1)
+	{
+		while (mycmd[++i])
+			free(mycmd[i]);
+		free(mycmd);
 		error();
+	}
 }
 
 void	child_process_1(char **av, int *fd, char **env)
@@ -93,7 +98,7 @@ void	child_process_2(char **av, int *fd, char **env)
 		error();
 	if (fd[0] != STDIN_FILENO)
 	{
-		if (dup2(fd[0], STDIN_FILENO) < 0)
+		if (dup2(fd[0], STDIN_FILENO) == -1)
 			error();
 		if (dup2(output, STDOUT_FILENO) == -1)
 			error();
