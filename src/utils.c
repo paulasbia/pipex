@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:34:28 by pde-souz          #+#    #+#             */
-/*   Updated: 2023/08/02 16:27:33 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/02 17:22:56 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ char	*check_path(char *mycmd, char **env)
 	char	*temp;
 	char	**paths;
 	int		i;
-
+	
 	i = 0;
+	if (ft_strchr(mycmd, '/'))
+		return(mycmd);
 	while (ft_strnstr(env[i], "PATH=", 5) == 0)
 		i++;
 	paths = ft_split(&env[i][5], ':');
