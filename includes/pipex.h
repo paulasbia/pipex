@@ -6,11 +6,11 @@
 /*   By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 11:11:53 by pde-souz          #+#    #+#             */
-/*   Updated: 2023/08/03 09:40:59 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/03 10:17:52 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef PIPEX_H
+#ifndef PIPEX_H
 # define PIPEX_H
 
 # include "../libft/libft.h"
