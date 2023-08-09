@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 11:26:35 by pde-souz          #+#    #+#             */
-/*   Updated: 2023/08/03 09:40:40 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/09 09:34:12 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	error_cmd(void)
 {
-	write(2, "\033[31mcommand not found\n", 24);
+	write(2, "\033[31mcommand not found\n\e[0m", 28);
 	exit(127);
 }
 

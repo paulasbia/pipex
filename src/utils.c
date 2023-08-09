@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:34:28 by pde-souz          #+#    #+#             */
-/*   Updated: 2023/08/03 09:41:19 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/08/09 09:33:28 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,24 @@ void	run(char *arg, char **env)
 
 	mycmd = ft_split(arg, ' ');
 	if (ft_strchr(mycmd[0], '/'))
+	{
 		path_cmd = mycmd[0];
+		if (execve(path_cmd, mycmd, env) == -1)
+		{
+			ft_clean(mycmd);
+			error();
+		}
+	}
 	else
 		path_cmd = check_path(mycmd[0], env);
-	if (path_cmd == 0)
+	if (path_cmd == 0 || execve(path_cmd, mycmd, env) == -1)
 	{
 		ft_clean(mycmd);
 		free(path_cmd);
-		error_cmd();
-	}
-	if (execve(path_cmd, mycmd, env) == -1)
-	{
-		ft_clean(mycmd);
-		free(path_cmd);
-		error_cmd();
+		if (path_cmd == 0)
+			error_cmd();
+		else
+			error();
 	}
 }
 
